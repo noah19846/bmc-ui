@@ -14,10 +14,10 @@
   width: 100%;
 }
 
-.bmc-button:active {
-  opacity: 0.9;
+.bmc-button.bmc-button__disabled {
+  opacity: 0.4;
 }
 
-.bmc-button:disabled {
-  opacity: 0.4;
+.bmc-button:active {
+  opacity: 0.9;
 }

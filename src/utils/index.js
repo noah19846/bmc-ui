@@ -1,22 +1,32 @@
+function isVoid(value) {
+  return value === undefined || value === null
+}
+
+export function concatTwoClassName(s1, s2) {
+  s1 = (isVoid(s1) ? '' : s1.toString()).trim()
+  s2 = (isVoid(s2) ? '' : s2.toString()).trim()
+
+  if (!s1) {
+    return s2
+  }
+
+  if (!s2) {
+    return s1
+  }
+
+  return `${s1} ${s2}`
+}
+
 export function concatClassName(...args) {
-  if (args.length < 2) {
-    return (args[0] || '').toString().trim()
+  if (args.length < 3) {
+    return concatTwoClassName(args[0], args[1])
   }
 
-  if (args.length === 2) {
-    const c1 = (args[0] || '').toString().trim()
-    const c2 = (args[1] || '').toString().trim()
+  let result = concatTwoClassName(args[0], args[1])
 
-    if (!c1) {
-      return c2
-    }
-
-    if (!c2) {
-      return ''
-    }
-
-    return `${c1} ${c2}`
+  for (let i = 2; i < args.length; i++) {
+    result = concatTwoClassName(result, args[i])
   }
 
-  return concatClassName(args[0], concatClassName(...args.slice(1)))
+  return result
 }

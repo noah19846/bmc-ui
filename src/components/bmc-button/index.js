@@ -1,4 +1,4 @@
-import './style.css'
+import './style.less'
 import { concatClassName } from '../../utils'
 
 export default {
@@ -15,6 +15,11 @@ export default {
     block: {
       type: Boolean,
       default: false
+    },
+
+    buttonType: {
+      type: String,
+      default: 'primary'
     }
   },
 
@@ -29,7 +34,9 @@ export default {
 
         class: concatClassName(
           'bmc-button',
-          ctx.props.block ? 'bmc-button__block' : ''
+          ctx.props.block ? 'bmc-button__block' : '',
+          ctx.props.disabled ? 'bmc-button__disabled' : '',
+          ctx.props.buttonType ? `bmc-button__${ctx.props.buttonType}` : ''
         ),
 
         on: {

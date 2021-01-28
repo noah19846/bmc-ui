@@ -39,5 +39,12 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './public/index.html'
     })
-  ]
+  ],
+
+  resolve: {
+    extensions: ['.js', '.jsx', '.json', '.vue'],
+    alias: {
+      '@': path.join(__dirname, './src')
+    }
+  }
 }

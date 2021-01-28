@@ -1,4 +1,4 @@
-import { concatClassName } from '../../utils/index.js'
+import { concatClassName } from '../../utils'
 
 export default {
   functional: true,

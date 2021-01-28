@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "start": "webpack serve",
     "test": "node --experimental-vm-modules node_modules/.bin/jest"

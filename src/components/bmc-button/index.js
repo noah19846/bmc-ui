@@ -1,5 +1,4 @@
-import './style.less'
-import { concatClassName } from '../../utils'
+import { concatClassName } from '../../utils/index.js'
 
 export default {
   functional: true,
@@ -45,10 +44,12 @@ export default {
               const listeners = ctx.listeners
               const handlers = listeners.click
 
-              if (Array.isArray(handlers)) {
-                handlers.forEach((f) => f(e))
-              } else {
-                handlers(e)
+              if (handlers) {
+                if (Array.isArray(handlers)) {
+                  handlers.forEach((f) => f(e))
+                } else {
+                  handlers(e)
+                }
               }
             }
           }

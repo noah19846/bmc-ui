@@ -16,27 +16,36 @@ export default {
       default: false
     },
 
-    buttonType: {
+    plain: {
+      type: Boolean,
+      default: false
+    },
+
+    type: {
       type: String,
-      default: 'primary'
+      default: 'default'
     }
   },
 
   render(h, ctx) {
+    const getClassName = (props) => {
+      return concatClassName(
+        'bmc-button',
+        props.block ? 'bmc-button__block' : '',
+        props.disabled ? 'bmc-button__disabled' : '',
+        props.plain ? 'bmc-button__plain' : '',
+        props.type ? `bmc-button__${props.type}` : 'bmc-button__default'
+      )
+    }
+
     return h(
       'button',
       {
         attrs: {
-          disabled: ctx.props.disabled,
-          class: 'bmc-button'
+          disabled: ctx.props.disabled
         },
 
-        class: concatClassName(
-          'bmc-button',
-          ctx.props.block ? 'bmc-button__block' : '',
-          ctx.props.disabled ? 'bmc-button__disabled' : '',
-          ctx.props.buttonType ? `bmc-button__${ctx.props.buttonType}` : ''
-        ),
+        class: getClassName(ctx.props),
 
         on: {
           click(e) {

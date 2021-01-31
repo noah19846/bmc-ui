@@ -40,3 +40,14 @@ export function emitEvent(ctx, eventName, event) {
     handlers(event)
   }
 }
+
+export function createComponent(name) {
+  return function (sfc) {
+    sfc.name = name
+    sfc.install = (Vue) => {
+      Vue.component(name, sfc)
+    }
+
+    return sfc
+  }
+}

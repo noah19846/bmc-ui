@@ -1,9 +1,7 @@
-import { concatClassName, emitEvent } from '../../utils'
+import { concatClassName, emitEvent, createComponent } from '../../utils'
 
-export default {
+export default createComponent('BmcButton')({
   functional: true,
-
-  name: 'BmcButton',
 
   props: {
     disabled: {
@@ -70,4 +68,4 @@ export default {
       ctx.children
     )
   }
-}
+})

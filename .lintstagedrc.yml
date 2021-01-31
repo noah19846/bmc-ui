@@ -1,3 +1,2 @@
 src/**/*.{js,ts}:
   - eslint --fix
-  - git add

@@ -30,3 +30,13 @@ export function concatClassName(...args) {
 
   return result
 }
+
+export function emitEvent(ctx, eventName, event) {
+  const handlers = ctx.listeners[eventName]
+
+  if (Array.isArray(handlers)) {
+    handlers.forEach((f) => f(event))
+  } else {
+    handlers(event)
+  }
+}

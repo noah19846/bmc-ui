@@ -1,4 +1,4 @@
-import { concatClassName } from '../../utils'
+import { concatClassName, emitEvent } from '../../utils'
 
 export default {
   functional: true,
@@ -38,31 +38,34 @@ export default {
       )
     }
 
+    const getEvents = ({ props, listeners }) => {
+      const { disabled } = props
+      let on = {}
+
+      if (!disabled && listeners['click']) {
+        on['click'] = function (event) {
+          emitEvent(ctx, 'click', event)
+        }
+      }
+
+      // 解决 ios :active 无效
+      on['touchstart'] = function (event) {
+        if (listeners['touchstart']) {
+          emitEvent(ctx, 'touchstart', event)
+        }
+      }
+
+      return on
+    }
+
     return h(
       'button',
       {
         attrs: {
           disabled: ctx.props.disabled
         },
-
         class: getClassName(ctx.props),
-
-        on: {
-          click(e) {
-            if (!ctx.props.disabled) {
-              const listeners = ctx.listeners
-              const handlers = listeners.click
-
-              if (handlers) {
-                if (Array.isArray(handlers)) {
-                  handlers.forEach((f) => f(e))
-                } else {
-                  handlers(e)
-                }
-              }
-            }
-          }
-        }
+        on: getEvents(ctx)
       },
       ctx.children
     )

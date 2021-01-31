@@ -1,6 +1,6 @@
 <template>
   <div style="padding: 20px">
-    <BmcButton plain type="secondary">你好呀</BmcButton>
+    <BmcButton block plain type="primary" @click="onClick">你好呀</BmcButton>
   </div>
 </template>
 

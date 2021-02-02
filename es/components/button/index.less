@@ -1,0 +1,64 @@
+@import '../../style/variables';
+
+.bmc-button {
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  height: @button-default-height;
+  width: @button-default-width;
+  font-size: @button-default-font-size;
+  line-height: @button-default-line-height;
+  text-align: center;
+  border-radius: @button-border-radius;
+  cursor: pointer;
+  transition: opacity @animation-duration-base;
+  border: @button-border-width solid @gray-4;
+  -webkit-appearance: none;
+
+  &__default {
+    color: @button-default-color;
+    background-color: @button-default-background-color;
+  }
+
+  &__primary {
+    color: #fff;
+    border: none;
+    background-image: @button-base-gradient;
+  }
+
+  &__secondary {
+    color: #fff;
+    border: none;
+    background-color: @secondary-color;
+  }
+
+  &__plain {
+    background-color: transparent;
+
+    &.bmc-button__primary {
+      color: @primary-color;
+      border: @button-border-width solid @primary-color;
+      background-image: none;
+    }
+
+    &.bmc-button__secondary {
+      color: @secondary-color;
+      border: @button-border-width solid @secondary-color;
+    }
+  }
+
+  &__block {
+    display: block;
+    width: 100%;
+  }
+
+  &__disabled {
+    opacity: @button-disabled-opacity;
+  }
+
+  &:active {
+    opacity: @button-active-opacity;
+  }
+}

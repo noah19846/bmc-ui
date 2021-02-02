@@ -1,23 +1,45 @@
-const { render, FileManager } = require('less')
 const fs = require('fs')
+const path = require('path')
+const { render, FileManager } = require('less')
+const { COMPONENT_PATH, ES_PATH } = require('./constants')
 
-async function buildLess() {
-  const source = fs.readFileSync('./src/components/button/style.less', 'utf-8')
+async function buildLess(filename) {
+  const source = fs.readFileSync(filename, 'utf-8')
   const { css } = await render(source, {
-    filename: './src/components/button/style.less',
+    filename,
     plugins: [
       function install(lessInstance, pluginManager) {
         pluginManager.addFileManager(new FileManager())
       }
     ]
   })
-  console.log(css)
+
+  return css
 }
 
-async function buildEsm() {
-  console.log('building...')
-  await buildLess()
-  console.log('build successfully.')
+async function build(targetPath) {
+  const dir = await fs.promises.opendir(targetPath)
+
+  for await (const dirent of dir) {
+    const { name } = dirent
+    const isDir = dirent.isDirectory()
+
+    if (isDir) {
+      const filePath = path.resolve(COMPONENT_PATH, name, 'index.less')
+
+      if (fs.existsSync(filePath)) {
+        const css = await buildLess(filePath)
+        const targetPath = path.resolve(ES_PATH, 'components', name)
+
+        if (!fs.existsSync(targetPath)) {
+          fs.mkdirSync(targetPath, { recursive: true })
+        }
+
+        fs.writeFileSync(path.resolve(targetPath, 'index.css'), css)
+        fs.copyFileSync(filePath, path.resolve(targetPath, 'index.less'))
+      }
+    }
+  }
 }
 
-buildEsm()
+build(COMPONENT_PATH)

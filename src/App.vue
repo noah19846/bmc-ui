@@ -6,7 +6,7 @@
 
 <script>
 import BmcButton from './components/button'
-import './components/button/style.less'
+import './components/button/index.less'
 
 export default {
   components: {

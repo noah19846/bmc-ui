@@ -2,6 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const { render, FileManager } = require('less')
 const { COMPONENT_PATH, ES_PATH } = require('./constants')
+const { transform } = require('@babel/core')
 
 async function buildLess(filename) {
   const source = fs.readFileSync(filename, 'utf-8')
@@ -37,6 +38,23 @@ async function build(targetPath) {
 
         fs.writeFileSync(path.resolve(targetPath, 'index.css'), css)
         fs.copyFileSync(filePath, path.resolve(targetPath, 'index.less'))
+
+        const srcJsCode = fs.readFileSync(
+          path.resolve(COMPONENT_PATH, name, 'index.js'),
+          'utf-8'
+        )
+        const { code } = transform(srcJsCode, {
+          presets: [
+            [
+              '@babel/preset-env',
+              {
+                modules: false
+              }
+            ]
+          ]
+        })
+
+        fs.writeFileSync(path.resolve(targetPath, 'index.js'), code)
       }
     }
   }

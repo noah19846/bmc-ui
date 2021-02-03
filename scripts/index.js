@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const { render, FileManager } = require('less')
-const { COMPONENT_PATH, ES_PATH } = require('./constants')
+const { COMPONENT_PATH, ES_PATH, LIB_PATH } = require('./constants')
 const { transform } = require('@babel/core')
 
 async function buildLess(filename) {
@@ -31,13 +31,20 @@ async function build(targetPath) {
       if (fs.existsSync(filePath)) {
         const css = await buildLess(filePath)
         const targetPath = path.resolve(ES_PATH, 'components', name)
+        const libPath = path.resolve(LIB_PATH, 'components', name)
 
         if (!fs.existsSync(targetPath)) {
           fs.mkdirSync(targetPath, { recursive: true })
         }
 
+        if (!fs.existsSync(libPath)) {
+          fs.mkdirSync(libPath, { recursive: true })
+        }
+
         fs.writeFileSync(path.resolve(targetPath, 'index.css'), css)
         fs.copyFileSync(filePath, path.resolve(targetPath, 'index.less'))
+        fs.writeFileSync(path.resolve(libPath, 'index.css'), css)
+        fs.copyFileSync(filePath, path.resolve(libPath, 'index.less'))
 
         const srcJsCode = fs.readFileSync(
           path.resolve(COMPONENT_PATH, name, 'index.js'),
@@ -54,7 +61,19 @@ async function build(targetPath) {
           ]
         })
 
+        const cjsCode = transform(srcJsCode, {
+          presets: [
+            [
+              '@babel/preset-env',
+              {
+                modules: 'cjs'
+              }
+            ]
+          ]
+        }).code
+
         fs.writeFileSync(path.resolve(targetPath, 'index.js'), code)
+        fs.writeFileSync(path.resolve(libPath, 'index.js'), cjsCode)
       }
     }
   }

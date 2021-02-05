@@ -1,0 +1,53 @@
+.bmc-button {
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  height: 40px;
+  width: 74px;
+  font-size: 16px;
+  line-height: 1.2;
+  text-align: center;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: opacity 0.3s;
+  border: 1px solid #ccc;
+  -webkit-appearance: none;
+}
+.bmc-button__default {
+  color: #333;
+  background-color: #fff;
+}
+.bmc-button__primary {
+  color: #fff;
+  border: none;
+  background-image: linear-gradient(135deg, #54b8f4 0%, #5c78eb 100%);
+}
+.bmc-button__secondary {
+  color: #fff;
+  border: none;
+  background-color: #565656;
+}
+.bmc-button__plain {
+  background-color: transparent;
+}
+.bmc-button__plain.bmc-button__primary {
+  color: #5995ef;
+  border: 1px solid #5995ef;
+  background-image: none;
+}
+.bmc-button__plain.bmc-button__secondary {
+  color: #565656;
+  border: 1px solid #565656;
+}
+.bmc-button__block {
+  display: block;
+  width: 100%;
+}
+.bmc-button__disabled {
+  opacity: 0.3;
+}
+.bmc-button:active {
+  opacity: 0.6;
+}

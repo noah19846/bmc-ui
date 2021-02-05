@@ -1,4 +1,4 @@
-import { concatClassName, concatTwoClassName } from '..'
+import { concatClassName, concatTwoClassName } from '../src/utils'
 
 test('no argument', () => expect(concatTwoClassName()).toBe(''))
 

@@ -1,5 +1,9 @@
-function isVoid(value) {
+export function isVoid(value) {
   return value === undefined || value === null
+}
+
+export function isEmpty(value) {
+  return isVoid(value) || value === ''
 }
 
 export function concatTwoClassName(s1, s2) {

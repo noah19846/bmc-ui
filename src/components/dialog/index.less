@@ -1,0 +1,36 @@
+@import '../../style/variables';
+
+.bmc-dialog {
+  padding: @dialog-padding;
+  font-size: @font-size-h3;
+  color: @secondary-color;
+  line-height: @dialog-line-height;
+  background-color: @white;
+  border-radius: @border-default-radius;
+
+  .bmc-dialog_title {
+    margin-bottom: @dialog-title-margin-bottom;
+    padding: @dialog-body-padding;
+    font-weight: @font-weight-bold;
+  }
+
+  .bmc-dialog_content {
+    display: flex;
+    align-items: center;
+    min-height: @dialog-body-min-height;
+    margin-bottom: @dialog-body-margin-bottom;
+    padding: @dialog-body-padding;
+  }
+
+  .bmc-dialog_button-wrapper {
+    display: flex;
+
+    .bmc-button {
+      flex: 1;
+
+      &:not(:last-child) {
+        margin-right: @dialog-button-gap;
+      }
+    }
+  }
+}

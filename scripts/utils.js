@@ -14,13 +14,6 @@ function getProjectRootPath(targetPath = process.cwd()) {
   return '/'
 }
 
-// function writeFile(path, str) {
-//   if (!fs.existsSync(path)) {
-
-//   }
-//   fs.
-// }
-
 module.exports = {
   getProjectRootPath
 }
